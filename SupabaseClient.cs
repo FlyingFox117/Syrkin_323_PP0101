@@ -22,7 +22,7 @@ namespace Ponyville_School
         {
             client = new RestClient(BaseURL); //Инициализация клиента RestRequest
             AppState.CurrentUser = new UserData(); //Текущий пользователь программы
-        } //Инициализация клиента
+        } //Инициализация клиента SupabaseClient
 
         private RestRequest CreateRequest(string endpoint, Method method = Method.Post) //Структура запроса к Supabase
         {
