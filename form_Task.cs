@@ -15,7 +15,7 @@ namespace Ponyville_School
     public partial class form_Task : Form
     {
         private bool finished = false; //Ключ к выполнению задания
-        private int SelectedTask = 0; //id выбранного задания
+        private int SelectedTask = 0, result = 0; //id выбранного задания и подсчёт баллов
         Timer Wait = new Timer(); //Таймер
         List<Questions> questions; //Список вопросов на задание
         public form_Task(int ID)
@@ -126,21 +126,32 @@ namespace Ponyville_School
         {
             if (finished != true) //Проверка, закончено ли задание или нет
             {
-                DialogResult Finish = MessageBox.Show("Завершить задание и узнать результат?", "Практика", MessageBoxButtons.YesNo, MessageBoxIcon.Question);
-                if (Finish == DialogResult.Yes)
+                Button finish = sender as Button;
+                if (finish.Text != "Закончить задание")
                 {
-                    int result = CalculateScore();
-                    int total = questions.Count();
-                    if (result == total)
-                        MessageBox.Show("Поздравляем! Все ответы верные!", "Результат", MessageBoxButtons.OK, MessageBoxIcon.Information);
-                    else if (result >= total / 2)
-                        MessageBox.Show($"Неплохо! Ты набрал {result} из {total}.", "Результат", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                    DialogResult Finish = MessageBox.Show("Завершить задание и узнать результат?", "Практика", MessageBoxButtons.YesNo, MessageBoxIcon.Question);
+                    if (Finish == DialogResult.Yes)
+                    {
+                        result = CalculateScore();
+                        int total = questions.Count();
+                        if (result == total)
+                            MessageBox.Show("Поздравляем! Все ответы верные!", "Результат", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                        else if (result >= total / 2)
+                            MessageBox.Show($"Неплохо! Ты набрал {result} из {total}.", "Результат", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                        else
+                            MessageBox.Show($"Ты набрал {result} из {total}. Попробуйте пройти снова!", "Результат", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                    }
                     else
-                        MessageBox.Show($"Ты набрал {result} из {total}. Попробуйте пройти снова!", "Результат", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                    {
+                        return;
+                    }
                 }
                 else
                 {
-                    return;
+                    AppState.Supabase.ResultSubmit(AppState.CurrentUser.id, AppState.Tasks[SelectedTask].id, result, AppState.SelectedCourse);
+                    this.Close();
+                    AppState.CurrentUser.available = false;
+                    MessageBox.Show("Твой лимит задач на сегодня закончился! Возращайся завтра");
                 }
             }
             else

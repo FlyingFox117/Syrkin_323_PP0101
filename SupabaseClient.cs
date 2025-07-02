@@ -9,6 +9,8 @@ using System.Threading.Tasks;
 
 namespace Ponyville_School
 {
+    /* Экземпляп класса Supabase, хранящий данные для связью с БД
+    на протяжении работы с программой, в текущей сессии */
     public class SupabaseClient
     {
         private readonly RestClient client;
@@ -20,7 +22,7 @@ namespace Ponyville_School
         {
             client = new RestClient(BaseURL); //Инициализация клиента RestRequest
             AppState.CurrentUser = new UserData(); //Текущий пользователь программы
-        }
+        } //Инициализация клиента
 
         private RestRequest CreateRequest(string endpoint, Method method = Method.Post) //Структура запроса к Supabase
         {
@@ -48,7 +50,7 @@ namespace Ponyville_School
                 return false; //Ошибка
         }
 
-        public async Task<bool> GetCourseData(string course, int? user_id) //Получение данных заданий
+        public async Task<bool> GetCourseData(string course, int? user_id)
         {
             try
             {
@@ -65,8 +67,8 @@ namespace Ponyville_School
                 int progress = rawJson["progress"].Value<int>();
                 var tasks = rawJson["assignments"].ToObject<List<Task>>();
                 
-                AppState.CurrentUser.CourseProgress = progress;
-                AppState.Tasks = tasks.ToArray();
+                AppState.CurrentUser.CourseProgress = progress; //Установка прогресса по курсу выбранного пользователем
+                AppState.Tasks = tasks.ToArray(); //Создание списка заданий
 
                 return true; //Запуск курса
             }
@@ -74,7 +76,7 @@ namespace Ponyville_School
             {
                 return false; //Ошибка
             }
-        }
+        } //Получение данных курса
 
         public async Task<List<Questions>> GetPracticeData(int Task)
         {
@@ -84,6 +86,19 @@ namespace Ponyville_School
 
             var questions = JsonConvert.DeserializeObject <List<Questions>>(response.Content);
             return questions;
-        }
+        } //Получение заданий
+
+        public async void ResultSubmit(int? user, int task, int score, string coursename)
+        {
+            var request = CreateRequest("/rest/v1/rpc/submit_task_result");
+            request.AddJsonBody(new
+            {
+                p_user_id = user,
+                p_task_id = task,
+                p_score = score,
+                p_course_name = coursename
+            });
+            await client.ExecuteAsync(request);
+        } //Отправка результата в базу данных
     }
 }

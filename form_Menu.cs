@@ -34,6 +34,14 @@ namespace Ponyville_School
                 courseButtons[i].MouseLeave += CourseButton_MouseLeave;
                 courseButtons[i].Click += CourseButton_Click;
             }
+            if (AppState.CurrentUser.available)
+            {
+                MessageBox.Show("Тебе доступно новое задание на сегодня!");
+            }
+            else
+            {
+                MessageBox.Show("Лимит задач на сегодня исчерпан. Приходи завтра!");
+            }
         }
         private string GetCourseDescription(string course) //Метод поиска описания курса по имени
         {
@@ -64,7 +72,11 @@ namespace Ponyville_School
         {
             PictureBox selected = sender as PictureBox;
             string course = selected.Tag.ToString();
-
+            if (!AppState.CurrentUser.available)
+            {
+                MessageBox.Show("У тебя кончился лимит заданий на сегодня");
+                return;
+            }
             bool GetTasks = await AppState.Supabase.GetCourseData(course, AppState.CurrentUser.id); //Обращение к методу класса SupabaseClient
 
             if (GetTasks)
@@ -76,6 +88,7 @@ namespace Ponyville_School
                 else
                     MessageBox.Show(AppState.Tasks[0].title + " твоё доступное задание на сегодня");
                 panel_Carousel.Visible = true;
+                AppState.SelectedCourse = course;
                 ShowTask();
             }
             else
@@ -134,14 +147,16 @@ namespace Ponyville_School
             var currentTask = AppState.Tasks[currentIndex];
             lb_TaskName.Text = currentTask.title; //Установка названия задания
             LoadImage(pb_Task, currentTask.image_url); //Загрузка изображения по ссылке
-
-            bt_Start.Enabled = currentTask.available; //Активация кнопки старт, если задание доступно
-            if (bt_Start.Enabled)
+            if (AppState.CurrentUser.available) //Если пользователь может выполнять задачи, делаем доступной кнопку
             {
-                bt_Start.Text = "Начать";
+                bt_Start.Enabled = currentTask.available; //Активация кнопки старт, если задание доступно
+                if (bt_Start.Enabled)
+                {
+                    bt_Start.Text = "Начать"; //Если прогресс позволяет
+                }
+                else
+                    bt_Start.Text = "Закончи предыдущее задание"; //Подсказка
             }
-            else
-                bt_Start.Text = "Закончи предыдущее задание";
         } //Отображение задания
 
         private async void LoadImage(PictureBox box, string url)
