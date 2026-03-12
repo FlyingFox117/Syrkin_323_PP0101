@@ -9,7 +9,10 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
 using System.IO;
+using AutoUpdaterDotNET;
 using System.Security.Principal;
+using System.Configuration;
+using System.Web.Configuration;
 
 namespace Ponyville_School
 {
@@ -40,6 +43,8 @@ namespace Ponyville_School
             }
             panel_Upper.BackColor = Color.FromArgb(212, 162, 233);
             bt_Profile.BackColor = Color.FromArgb(212, 162, 233);
+            CheckForUpdates();
+            MessageBox.Show("Обновлений нет");
         }
         private async Task<bool> LoadUserProgress()
         {
@@ -292,5 +297,9 @@ namespace Ponyville_School
                 lb_Score.Text = "0";
             }            
         } //Показ результата задания
+        private void CheckForUpdates()
+        {
+            AutoUpdater.Start("https://raw.githubusercontent.com/FlyingFox117/Syrkin_323_PP0101/master/update.xml");
+        }
     }
 }

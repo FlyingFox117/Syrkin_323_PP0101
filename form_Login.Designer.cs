@@ -48,6 +48,7 @@ namespace Ponyville_School
             this.label3 = new System.Windows.Forms.Label();
             this.box_RegLogin = new System.Windows.Forms.TextBox();
             this.bt_CreateUser = new System.Windows.Forms.Button();
+            this.label7 = new System.Windows.Forms.Label();
             ((System.ComponentModel.ISupportInitialize)(this.password_show)).BeginInit();
             this.panel_Registration.SuspendLayout();
             this.SuspendLayout();
@@ -126,6 +127,7 @@ namespace Ponyville_School
             // 
             // panel_Registration
             // 
+            this.panel_Registration.Controls.Add(this.label7);
             this.panel_Registration.Controls.Add(this.bt_Cancel);
             this.panel_Registration.Controls.Add(this.label6);
             this.panel_Registration.Controls.Add(this.box_RegRPass);
@@ -231,6 +233,15 @@ namespace Ponyville_School
             this.bt_CreateUser.UseVisualStyleBackColor = true;
             this.bt_CreateUser.Click += new System.EventHandler(this.bt_CreateUser_Click);
             // 
+            // label7
+            // 
+            this.label7.AutoSize = true;
+            this.label7.Location = new System.Drawing.Point(12, 331);
+            this.label7.Name = "label7";
+            this.label7.Size = new System.Drawing.Size(157, 23);
+            this.label7.TabIndex = 9;
+            this.label7.Text = "Это версия 1.1.0!";
+            // 
             // form_Login
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(11F, 23F);
@@ -279,6 +290,7 @@ namespace Ponyville_School
         private System.Windows.Forms.TextBox box_RegName;
         private System.Windows.Forms.Label label3;
         private System.Windows.Forms.TextBox box_RegLogin;
+        private System.Windows.Forms.Label label7;
     }
 }
 
