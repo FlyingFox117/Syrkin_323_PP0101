@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Diagnostics;
 using System.Linq;
 using System.Threading.Tasks;
 using System.Windows.Forms;
@@ -16,6 +17,7 @@ namespace Ponyville_School
         {
             Application.EnableVisualStyles();
             Application.SetCompatibleTextRenderingDefault(false);
+            Debug.WriteLine("Консоль работает");
             using (var loginForm = new form_Login())
             {
                 if (loginForm.ShowDialog() == DialogResult.OK)

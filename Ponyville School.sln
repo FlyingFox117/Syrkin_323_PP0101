@@ -1,9 +1,11 @@
 ﻿
 Microsoft Visual Studio Solution File, Format Version 12.00
-# Visual Studio Version 16
-VisualStudioVersion = 16.0.34902.97
+# Visual Studio Version 17
+VisualStudioVersion = 17.14.36717.8 d17.14
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Ponyville School", "Ponyville School.csproj", "{7B68267A-011E-41ED-9CE2-D768E415D38D}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Ponyville School Test", "..\Ponyville School Test\Ponyville School Test.csproj", "{2D33C593-2BDB-4A8B-B167-586859B0B3F5}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -15,6 +17,10 @@ Global
 		{7B68267A-011E-41ED-9CE2-D768E415D38D}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{7B68267A-011E-41ED-9CE2-D768E415D38D}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{7B68267A-011E-41ED-9CE2-D768E415D38D}.Release|Any CPU.Build.0 = Release|Any CPU
+		{2D33C593-2BDB-4A8B-B167-586859B0B3F5}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{2D33C593-2BDB-4A8B-B167-586859B0B3F5}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{2D33C593-2BDB-4A8B-B167-586859B0B3F5}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{2D33C593-2BDB-4A8B-B167-586859B0B3F5}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

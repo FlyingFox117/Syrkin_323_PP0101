@@ -16,6 +16,8 @@ namespace Ponyville_School
         public string image_url { get; set; } //Ссылка на изображение
         public string text { get; set; } //Текст задания
         public string video { get; set; } //Видео задания
+        public string description { get; set; } //Описание задания
+        public int? result { get; set; } //Результат задания, если пользователь ранее проходил задание
         public bool available { get; set; } //Доступно для выполнения
     }
 }

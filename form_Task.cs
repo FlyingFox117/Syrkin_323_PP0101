@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.Data;
+using System.Diagnostics;
 using System.Drawing;
 using System.IO;
 using System.Linq;
@@ -15,7 +16,7 @@ namespace Ponyville_School
     public partial class form_Task : Form
     {
         private bool finished = false; //Ключ к выполнению задания
-        private int SelectedTask = 0, result = 0; //id выбранного задания и подсчёт баллов
+        private int SelectedTask = 0, result = 0, secondsPassed = 0; //id выбранного задания и подсчёт баллов
         Timer Wait = new Timer(); //Таймер
         List<Questions> questions; //Список вопросов на задание
         public form_Task(int ID)
@@ -27,28 +28,36 @@ namespace Ponyville_School
             Wait.Tick += Wait_Tick;
             Wait.Start();
         } //Инициализация класса
+        
+        //Ниже - методы управления теоретической частью
         private void Wait_Tick(object sender, EventArgs e)
         {
             bt_Continue.Enabled = true;
             Wait.Stop();
         } //Метод таймера для разблокировки задания
-
         private void form_Task_FormClosing(object sender, FormClosingEventArgs e)
         {
-            DialogResult Exit = MessageBox.Show("Ты точно хочешь прекратить выполнение этого задания? Ты сможешь вернуться и пройти позже", "Выход", MessageBoxButtons.YesNo, MessageBoxIcon.Question);
-            if (Exit == DialogResult.Yes)
+            if (finished)
             {
-                if (video_Theory.URL != "")
-                {
-                    video_Theory.Ctlcontrols.pause();
-                    File.Delete(video_Theory.URL);
-                }
                 this.DialogResult = DialogResult.OK; //Возврат на форму выбора задания
+                return;
             }
             else
-                e.Cancel = true; //Отмена закрытия
+            {
+                DialogResult Exit = MessageBox.Show("Ты точно хочешь прекратить выполнение этого задания? Ты сможешь вернуться и пройти позже", "Выход", MessageBoxButtons.YesNo, MessageBoxIcon.Question);
+                if (Exit == DialogResult.Yes)
+                {
+                    if (video_Theory.URL != "")
+                    {
+                        video_Theory.Ctlcontrols.pause();
+                        File.Delete(video_Theory.URL);
+                    }
+                    this.DialogResult = DialogResult.OK; //Возврат на форму выбора задания
+                }
+                else
+                    e.Cancel = true; //Отмена закрытия
+            }
         } //Закрытие формы задания
-
         private async void form_Task_Load(object sender, EventArgs e)
         {
             if (!string.IsNullOrEmpty(AppState.Tasks[SelectedTask].text)) //Загрузка текста задания
@@ -70,7 +79,6 @@ namespace Ponyville_School
                 video_Theory.Ctlcontrols.play();
             }
         } //Загрузка теории
-
         private async Task<string> SetVideo(string url)
         {
             string tempFile = Path.Combine(Path.GetTempPath(), $"lesson_{Guid.NewGuid()}.mp4");
@@ -83,7 +91,7 @@ namespace Ponyville_School
                 }
                 catch
                 {
-                    MessageBox.Show("Ошибка загрузки видео для урока. Обратитесь к учителю", "Ошибка", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                    MessageBox.Show("Ошибка загрузки видео для урока", "Ошибка", MessageBoxButtons.OK, MessageBoxIcon.Error);
                     return null;
                 }
             }
@@ -92,13 +100,13 @@ namespace Ponyville_School
         //Ниже - методы управления практической частью
         private async void bt_Continue_Click(object sender, EventArgs e)
         {
-            DialogResult Continue = MessageBox.Show("Ты уверен, что хочешь начать выполнение задания? Вернуться к практике будет невозможно!", "Практика", MessageBoxButtons.YesNo, MessageBoxIcon.Question);
+            DialogResult Continue = MessageBox.Show("Ты уверен, что хочешь начать выполнение задания? Вернуться к теории будет невозможно!", "Практика", MessageBoxButtons.YesNo, MessageBoxIcon.Question);
             if (Continue == DialogResult.Yes)
             {
                 bt_Continue.Enabled = false;
                 questions = await AppState.Supabase.GetPracticeData(AppState.Tasks[SelectedTask].id); //Получение списка заданий и ответов из БД
                 panel_Practice.Controls.Clear(); //Отчиска панели с заданиями
-                int yOffset = 25; //Отступ от верхней границы
+                int yOffset = 55; //Отступ от верхней границы
                 int question_number = 0;
                 foreach (var question in questions) //Перебор всех вопросов из списка
                 {
@@ -119,48 +127,56 @@ namespace Ponyville_School
                 finish.Click += Finish_Click;
                 panel_Practice.Controls.Add(finish);
                 panel_Practice.Show();
+
+                lb_TaskQuestion.Text = "Дай ответ на вопросы ниже";
+                video_Theory.URL = null;
+                video_Theory.Ctlcontrols.pause(); //Остановка плеера
+                timer_Practice.Start(); //Старт таймера выполнения
             }
         } //Переход к практике
-
-        private void Finish_Click(object sender, EventArgs e)
+        private async void Finish_Click(object sender, EventArgs e)
         {
-            if (finished != true) //Проверка, закончено ли задание или нет
+            Debug.WriteLine("Готовность: " + finished);
+            if (!finished) //Проверка, закончено ли задание или нет
             {
                 Button finish = sender as Button;
-                if (finish.Text != "Закончить задание")
+                DialogResult Finish = MessageBox.Show("Завершить задание и узнать результат?", "Практика", MessageBoxButtons.YesNo, MessageBoxIcon.Question);
+                if (Finish == DialogResult.Yes)
                 {
-                    DialogResult Finish = MessageBox.Show("Завершить задание и узнать результат?", "Практика", MessageBoxButtons.YesNo, MessageBoxIcon.Question);
-                    if (Finish == DialogResult.Yes)
+                    finish.Enabled = false;
+                    timer_Practice.Stop();
+                    result = CalculateScore();
+                    int total = questions.Count();
+                    await AppState.Supabase.ResultSubmit(AppState.CurrentUser.id, AppState.Tasks[SelectedTask].id, result, AppState.SelectedCourse); //Отправка данных в Supabase
+                    AppState.CurrentUser.available = false;
+                    if (result == total)
                     {
-                        result = CalculateScore();
-                        int total = questions.Count();
-                        if (result == total)
-                            MessageBox.Show("Поздравляем! Все ответы верные!", "Результат", MessageBoxButtons.OK, MessageBoxIcon.Information);
-                        else if (result >= total / 2)
-                            MessageBox.Show($"Неплохо! Ты набрал {result} из {total}.", "Результат", MessageBoxButtons.OK, MessageBoxIcon.Information);
-                        else
-                            MessageBox.Show($"Ты набрал {result} из {total}. Попробуйте пройти снова!", "Результат", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                        MessageBox.Show("Поздравляем! Все ответы верные!", "Результат", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                    }
+                    else if (result >= total / 2)
+                    {
+                        MessageBox.Show($"Неплохо! Ты набрал {result} из {total}.", "Результат", MessageBoxButtons.OK, MessageBoxIcon.Information);
                     }
                     else
                     {
-                        return;
+                        MessageBox.Show($"Ты набрал {result} из {total}. Попробуй ещё раз!", "Результат", MessageBoxButtons.OK, MessageBoxIcon.Warning);
                     }
+                    finished = true;
+                    finish.Enabled = true;
                 }
                 else
                 {
-                    AppState.Supabase.ResultSubmit(AppState.CurrentUser.id, AppState.Tasks[SelectedTask].id, result, AppState.SelectedCourse);
-                    this.Close();
-                    AppState.CurrentUser.available = false;
-                    MessageBox.Show("Твой лимит задач на сегодня закончился! Возращайся завтра");
+                    return;
                 }
             }
             else
             {
                 this.Close(); //Закрытие формы
-                //Отправка данных в Supabase
-            }    
+                video_Theory.URL = null;
+                video_Theory.Ctlcontrols.pause();
+                finished = false;
+            }
         } //Закончить тестовую часть
-
         private Panel GenerateQuestionCard(Questions question, int number)
         {
             try
@@ -178,7 +194,7 @@ namespace Ponyville_School
                 Label lblQuestion = new Label
                 {
                     Text = $"Вопрос №{number}: {question.text}",
-                    Font = new Font("Segoe UI", 12, FontStyle.Bold),
+                    Font = new Font("Georgia", 14, FontStyle.Bold),
                     Location = new Point(10, 10),
                     AutoSize = false,
                     Width = cardPanel.Width - 20,
@@ -192,6 +208,7 @@ namespace Ponyville_School
                     RadioButton rb = new RadioButton
                     {
                         Text = answer.text,
+                        Font = new Font("Georgia", 14),
                         Tag = answer.id,
                         Location = new Point(20, radioY),
                         Width = cardPanel.Width - 40,
@@ -211,6 +228,16 @@ namespace Ponyville_School
                 return null;
             }
         } //Генерация карточек с вопросами
+
+        private void timer_Practice_Tick(object sender, EventArgs e)
+        {
+            secondsPassed++;
+
+            int minutes = secondsPassed / 60;
+            int seconds = secondsPassed % 60;
+
+            lb_Timer.Text = $"{minutes:00}:{seconds:00}";
+        }
 
         private int CalculateScore()
         {

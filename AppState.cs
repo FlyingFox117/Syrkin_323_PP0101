@@ -16,7 +16,9 @@ namespace Ponyville_School
 
         public static Task[] Tasks { get; set; } //Инициализация списка заданий
 
-        public static string SelectedCourse { get; set; } //Выбранный курс
+        public static int SelectedCourse { get; set; } //Выбранный курс
+
+        public static CourseProgress[] CoursesProgress { get; set; } //Данные всех курсов
 
         public static void Reset() //Обнуление данных приложения
         {

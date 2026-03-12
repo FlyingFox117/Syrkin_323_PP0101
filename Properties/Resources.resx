@@ -118,22 +118,55 @@
     <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
   <assembly alias="System.Windows.Forms" name="System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089" />
-  <data name="bt_loyalty" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>..\Resources\bt_loyalty.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  <data name="applejack_course" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\applejack_course.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
-  <data name="bt_generosity" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>..\Resources\bt_generosity.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
-  </data>
-  <data name="bt_laughter" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>..\Resources\bt_laughter.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  <data name="AJ_PFP" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\AJ_PFP.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
   <data name="bt_kindness" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\Resources\bt_kindness.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
-  <data name="bt_honesty" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>..\Resources\bt_honesty.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  <data name="Пароль" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\Пароль.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="fluttershy_course" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\fluttershy_course.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="rainbow_course" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\rainbow_course.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="bt_laugh" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\bt_laugh.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="bt_loyalty" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\bt_loyalty.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="pinkie_course" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\pinkie_course.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
   <data name="bt_magic" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\Resources\bt_magic.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="score_Applejack" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\score_Applejack.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="bt_honesty" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\bt_honesty.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="twilight_course" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\twilight_course.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="Без пароля" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\Без пароля.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="bt_generosity" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\bt_generosity.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="rarity_course" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\rarity_course.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="score_Rarity" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\score_Rarity.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
 </root>
