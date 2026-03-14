@@ -38,6 +38,7 @@ namespace Ponyville_School
             this.password_show = new System.Windows.Forms.PictureBox();
             this.bt_Reg = new System.Windows.Forms.Button();
             this.panel_Registration = new System.Windows.Forms.Panel();
+            this.label7 = new System.Windows.Forms.Label();
             this.bt_Cancel = new System.Windows.Forms.Button();
             this.label6 = new System.Windows.Forms.Label();
             this.box_RegRPass = new System.Windows.Forms.TextBox();
@@ -48,7 +49,6 @@ namespace Ponyville_School
             this.label3 = new System.Windows.Forms.Label();
             this.box_RegLogin = new System.Windows.Forms.TextBox();
             this.bt_CreateUser = new System.Windows.Forms.Button();
-            this.label7 = new System.Windows.Forms.Label();
             ((System.ComponentModel.ISupportInitialize)(this.password_show)).BeginInit();
             this.panel_Registration.SuspendLayout();
             this.SuspendLayout();
@@ -146,6 +146,15 @@ namespace Ponyville_School
             this.panel_Registration.TabIndex = 7;
             this.panel_Registration.Visible = false;
             // 
+            // label7
+            // 
+            this.label7.AutoSize = true;
+            this.label7.Location = new System.Drawing.Point(12, 331);
+            this.label7.Name = "label7";
+            this.label7.Size = new System.Drawing.Size(160, 23);
+            this.label7.TabIndex = 9;
+            this.label7.Text = "Это версия 1.2.0!";
+            // 
             // bt_Cancel
             // 
             this.bt_Cancel.Location = new System.Drawing.Point(250, 300);
@@ -232,15 +241,6 @@ namespace Ponyville_School
             this.bt_CreateUser.Text = "Регистрация";
             this.bt_CreateUser.UseVisualStyleBackColor = true;
             this.bt_CreateUser.Click += new System.EventHandler(this.bt_CreateUser_Click);
-            // 
-            // label7
-            // 
-            this.label7.AutoSize = true;
-            this.label7.Location = new System.Drawing.Point(12, 331);
-            this.label7.Name = "label7";
-            this.label7.Size = new System.Drawing.Size(157, 23);
-            this.label7.TabIndex = 9;
-            this.label7.Text = "Это версия 1.1.0!";
             // 
             // form_Login
             // 

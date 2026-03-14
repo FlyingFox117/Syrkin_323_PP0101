@@ -130,6 +130,8 @@ namespace Ponyville_School
             panel_Course.Visible = true;
             panel_Course.BringToFront();
             panel_Course.Location = new Point(selected.Location.X + 23, selected.Bottom - 30);
+            AppState.SelectedCourse = course + 1;
+            GetCourseData(course);
         }
         private void CourseButton_Click(object sender, EventArgs e) //Показ информации и кнопки "Начать"
         {
@@ -139,9 +141,9 @@ namespace Ponyville_School
                 bt_CourseStart_Click(sender, e);
                 return;
             }
-            int course = (int)selected.Tag;
-            AppState.SelectedCourse = course + 1;
-            GetCourseData(course);
+            //int course = (int)selected.Tag;
+            //AppState.SelectedCourse = course + 1;
+            //GetCourseData(course);
         }
         private void CourseButton_MouseLeave(object sender, EventArgs e) //Метод скрытия описания курса
         {

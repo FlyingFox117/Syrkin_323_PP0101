@@ -30,6 +30,7 @@ namespace Ponyville_School
             if (login == "" || password == "") //Проверка заполненности полей
             {
                 MessageBox.Show("Ошибка авторизации, заполни недостающие поля");
+                bt_Enter.Enabled = true;
                 return;
             }
 
@@ -118,6 +119,7 @@ namespace Ponyville_School
             if (!result) //Неуспешная регистрация: Supabase вернул ошибку
             {
                 MessageBox.Show("Произошла ошибка при регистрации");
+                bt_CreateUser.Enabled = true;
                 return;
             }
 

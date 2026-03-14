@@ -33,38 +33,38 @@ namespace Ponyville_School
             this.panel_Course = new System.Windows.Forms.Panel();
             this.label_Progress = new System.Windows.Forms.Label();
             this.panel_Carousel = new System.Windows.Forms.Panel();
+            this.lb_Score = new System.Windows.Forms.Label();
+            this.pb_Score = new System.Windows.Forms.PictureBox();
+            this.lb_Description = new System.Windows.Forms.Label();
             this.bt_ReturnToMenu = new System.Windows.Forms.Button();
             this.bt_Left = new System.Windows.Forms.Button();
             this.lb_TaskName = new System.Windows.Forms.Label();
             this.bt_Right = new System.Windows.Forms.Button();
+            this.pb_Task = new System.Windows.Forms.PictureBox();
             this.bt_Start = new System.Windows.Forms.Button();
             this.panel_Upper = new System.Windows.Forms.Panel();
             this.label_Message = new System.Windows.Forms.Label();
+            this.bt_Profile = new System.Windows.Forms.PictureBox();
             this.panel_Side = new System.Windows.Forms.Panel();
             this.label_CourseName = new System.Windows.Forms.Label();
             this.label_CourseDescription = new System.Windows.Forms.Label();
+            this.picture_Character = new System.Windows.Forms.PictureBox();
             this.bt_CourseStart = new System.Windows.Forms.Button();
             this.label1 = new System.Windows.Forms.Label();
-            this.lb_Description = new System.Windows.Forms.Label();
-            this.pb_Score = new System.Windows.Forms.PictureBox();
-            this.pb_Task = new System.Windows.Forms.PictureBox();
-            this.picture_Character = new System.Windows.Forms.PictureBox();
-            this.bt_Profile = new System.Windows.Forms.PictureBox();
             this.bt_Kindness = new System.Windows.Forms.PictureBox();
             this.bt_Magic = new System.Windows.Forms.PictureBox();
             this.bt_Laughter = new System.Windows.Forms.PictureBox();
             this.bt_Loyalty = new System.Windows.Forms.PictureBox();
             this.bt_Generosity = new System.Windows.Forms.PictureBox();
             this.bt_Honesty = new System.Windows.Forms.PictureBox();
-            this.lb_Score = new System.Windows.Forms.Label();
             this.panel_Course.SuspendLayout();
             this.panel_Carousel.SuspendLayout();
-            this.panel_Upper.SuspendLayout();
-            this.panel_Side.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.pb_Score)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.pb_Task)).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)(this.picture_Character)).BeginInit();
+            this.panel_Upper.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.bt_Profile)).BeginInit();
+            this.panel_Side.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.picture_Character)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.bt_Kindness)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.bt_Magic)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.bt_Laughter)).BeginInit();
@@ -103,12 +103,41 @@ namespace Ponyville_School
             this.panel_Carousel.Controls.Add(this.bt_Right);
             this.panel_Carousel.Controls.Add(this.pb_Task);
             this.panel_Carousel.Controls.Add(this.bt_Start);
-            this.panel_Carousel.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.panel_Carousel.Dock = System.Windows.Forms.DockStyle.Top;
             this.panel_Carousel.Location = new System.Drawing.Point(0, 62);
             this.panel_Carousel.Name = "panel_Carousel";
             this.panel_Carousel.Size = new System.Drawing.Size(687, 495);
             this.panel_Carousel.TabIndex = 7;
             this.panel_Carousel.Visible = false;
+            // 
+            // lb_Score
+            // 
+            this.lb_Score.AutoSize = true;
+            this.lb_Score.BackColor = System.Drawing.Color.White;
+            this.lb_Score.Font = new System.Drawing.Font("Georgia", 15.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
+            this.lb_Score.Location = new System.Drawing.Point(603, 69);
+            this.lb_Score.Name = "lb_Score";
+            this.lb_Score.Size = new System.Drawing.Size(27, 25);
+            this.lb_Score.TabIndex = 8;
+            this.lb_Score.Text = "0";
+            // 
+            // pb_Score
+            // 
+            this.pb_Score.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Stretch;
+            this.pb_Score.Location = new System.Drawing.Point(548, 8);
+            this.pb_Score.Name = "pb_Score";
+            this.pb_Score.Size = new System.Drawing.Size(133, 133);
+            this.pb_Score.TabIndex = 7;
+            this.pb_Score.TabStop = false;
+            // 
+            // lb_Description
+            // 
+            this.lb_Description.Font = new System.Drawing.Font("Georgia", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
+            this.lb_Description.Location = new System.Drawing.Point(165, 73);
+            this.lb_Description.Name = "lb_Description";
+            this.lb_Description.Size = new System.Drawing.Size(364, 98);
+            this.lb_Description.TabIndex = 6;
+            this.lb_Description.Text = "Описание задания";
             // 
             // bt_ReturnToMenu
             // 
@@ -161,6 +190,20 @@ namespace Ponyville_School
             this.bt_Right.UseVisualStyleBackColor = true;
             this.bt_Right.Click += new System.EventHandler(this.bt_Right_Click);
             // 
+            // pb_Task
+            // 
+            this.pb_Task.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
+            | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
+            this.pb_Task.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Stretch;
+            this.pb_Task.BorderStyle = System.Windows.Forms.BorderStyle.Fixed3D;
+            this.pb_Task.Location = new System.Drawing.Point(165, 183);
+            this.pb_Task.Name = "pb_Task";
+            this.pb_Task.Size = new System.Drawing.Size(364, 203);
+            this.pb_Task.SizeMode = System.Windows.Forms.PictureBoxSizeMode.StretchImage;
+            this.pb_Task.TabIndex = 1;
+            this.pb_Task.TabStop = false;
+            // 
             // bt_Start
             // 
             this.bt_Start.Enabled = false;
@@ -194,6 +237,18 @@ namespace Ponyville_School
             this.label_Message.TabIndex = 11;
             this.label_Message.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
             // 
+            // bt_Profile
+            // 
+            this.bt_Profile.BackColor = System.Drawing.Color.LightGray;
+            this.bt_Profile.BackgroundImage = global::Ponyville_School.Properties.Resources.AJ_PFP;
+            this.bt_Profile.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Stretch;
+            this.bt_Profile.Location = new System.Drawing.Point(3, 3);
+            this.bt_Profile.Name = "bt_Profile";
+            this.bt_Profile.Size = new System.Drawing.Size(57, 55);
+            this.bt_Profile.TabIndex = 10;
+            this.bt_Profile.TabStop = false;
+            this.bt_Profile.Click += new System.EventHandler(this.bt_Profile_Click);
+            // 
             // panel_Side
             // 
             this.panel_Side.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
@@ -226,6 +281,16 @@ namespace Ponyville_School
             this.label_CourseDescription.TabIndex = 2;
             this.label_CourseDescription.Text = "Выбери курс для прохождения в левой части окна!";
             // 
+            // picture_Character
+            // 
+            this.picture_Character.BackgroundImageLayout = System.Windows.Forms.ImageLayout.None;
+            this.picture_Character.Location = new System.Drawing.Point(114, 194);
+            this.picture_Character.Name = "picture_Character";
+            this.picture_Character.Size = new System.Drawing.Size(143, 247);
+            this.picture_Character.SizeMode = System.Windows.Forms.PictureBoxSizeMode.Zoom;
+            this.picture_Character.TabIndex = 1;
+            this.picture_Character.TabStop = false;
+            // 
             // bt_CourseStart
             // 
             this.bt_CourseStart.BackColor = System.Drawing.SystemColors.Control;
@@ -249,60 +314,6 @@ namespace Ponyville_School
             this.label1.Size = new System.Drawing.Size(100, 23);
             this.label1.TabIndex = 10;
             this.label1.Text = "Основные";
-            // 
-            // lb_Description
-            // 
-            this.lb_Description.Font = new System.Drawing.Font("Georgia", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
-            this.lb_Description.Location = new System.Drawing.Point(165, 73);
-            this.lb_Description.Name = "lb_Description";
-            this.lb_Description.Size = new System.Drawing.Size(364, 98);
-            this.lb_Description.TabIndex = 6;
-            this.lb_Description.Text = "Описание задания";
-            // 
-            // pb_Score
-            // 
-            this.pb_Score.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Stretch;
-            this.pb_Score.Location = new System.Drawing.Point(548, 8);
-            this.pb_Score.Name = "pb_Score";
-            this.pb_Score.Size = new System.Drawing.Size(133, 133);
-            this.pb_Score.TabIndex = 7;
-            this.pb_Score.TabStop = false;
-            // 
-            // pb_Task
-            // 
-            this.pb_Task.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
-            | System.Windows.Forms.AnchorStyles.Left) 
-            | System.Windows.Forms.AnchorStyles.Right)));
-            this.pb_Task.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Stretch;
-            this.pb_Task.BorderStyle = System.Windows.Forms.BorderStyle.Fixed3D;
-            this.pb_Task.Location = new System.Drawing.Point(165, 183);
-            this.pb_Task.Name = "pb_Task";
-            this.pb_Task.Size = new System.Drawing.Size(364, 203);
-            this.pb_Task.SizeMode = System.Windows.Forms.PictureBoxSizeMode.StretchImage;
-            this.pb_Task.TabIndex = 1;
-            this.pb_Task.TabStop = false;
-            // 
-            // picture_Character
-            // 
-            this.picture_Character.BackgroundImageLayout = System.Windows.Forms.ImageLayout.None;
-            this.picture_Character.Location = new System.Drawing.Point(114, 194);
-            this.picture_Character.Name = "picture_Character";
-            this.picture_Character.Size = new System.Drawing.Size(143, 247);
-            this.picture_Character.SizeMode = System.Windows.Forms.PictureBoxSizeMode.Zoom;
-            this.picture_Character.TabIndex = 1;
-            this.picture_Character.TabStop = false;
-            // 
-            // bt_Profile
-            // 
-            this.bt_Profile.BackColor = System.Drawing.Color.LightGray;
-            this.bt_Profile.BackgroundImage = global::Ponyville_School.Properties.Resources.AJ_PFP;
-            this.bt_Profile.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Stretch;
-            this.bt_Profile.Location = new System.Drawing.Point(3, 3);
-            this.bt_Profile.Name = "bt_Profile";
-            this.bt_Profile.Size = new System.Drawing.Size(57, 55);
-            this.bt_Profile.TabIndex = 10;
-            this.bt_Profile.TabStop = false;
-            this.bt_Profile.Click += new System.EventHandler(this.bt_Profile_Click);
             // 
             // bt_Kindness
             // 
@@ -383,17 +394,6 @@ namespace Ponyville_School
             this.bt_Honesty.TabIndex = 0;
             this.bt_Honesty.TabStop = false;
             // 
-            // lb_Score
-            // 
-            this.lb_Score.AutoSize = true;
-            this.lb_Score.BackColor = System.Drawing.Color.White;
-            this.lb_Score.Font = new System.Drawing.Font("Georgia", 15.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
-            this.lb_Score.Location = new System.Drawing.Point(603, 69);
-            this.lb_Score.Name = "lb_Score";
-            this.lb_Score.Size = new System.Drawing.Size(27, 25);
-            this.lb_Score.TabIndex = 8;
-            this.lb_Score.Text = "0";
-            // 
             // form_Menu
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(11F, 23F);
@@ -421,12 +421,12 @@ namespace Ponyville_School
             this.panel_Course.ResumeLayout(false);
             this.panel_Carousel.ResumeLayout(false);
             this.panel_Carousel.PerformLayout();
-            this.panel_Upper.ResumeLayout(false);
-            this.panel_Side.ResumeLayout(false);
             ((System.ComponentModel.ISupportInitialize)(this.pb_Score)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.pb_Task)).EndInit();
-            ((System.ComponentModel.ISupportInitialize)(this.picture_Character)).EndInit();
+            this.panel_Upper.ResumeLayout(false);
             ((System.ComponentModel.ISupportInitialize)(this.bt_Profile)).EndInit();
+            this.panel_Side.ResumeLayout(false);
+            ((System.ComponentModel.ISupportInitialize)(this.picture_Character)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.bt_Kindness)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.bt_Magic)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.bt_Laughter)).EndInit();
