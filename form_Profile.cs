@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.ComponentModel;
 using System.Data;
 using System.Drawing;
+using System.IO;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -89,8 +90,15 @@ namespace Ponyville_School
                 y += 120;
             }
         } //Генерация карточек
-        private void bt_Exit_Click(object sender, EventArgs e)
+        private async void bt_Exit_Click(object sender, EventArgs e)
         {
+            string appData =
+            Environment.GetFolderPath(Environment.SpecialFolder.ApplicationData);
+            string folder = Path.Combine(appData, "Ponyville School");
+            string tokenPath = Path.Combine(folder, "session.dat");
+            string token = File.ReadAllText(tokenPath);
+            File.Delete(tokenPath);
+            await AppState.Supabase.DeleteToken(token);
             Application.Exit();
         } //Выход из приложения
     }

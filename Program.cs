@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Diagnostics;
+using System.IO;
 using System.Linq;
 using System.Threading.Tasks;
 using System.Windows.Forms;
@@ -15,15 +16,18 @@ namespace Ponyville_School
         [STAThread]
         static void Main()
         {
+            Stopwatch sw = Stopwatch.StartNew();
+            Logger.Write("Запуск программы");
             Application.EnableVisualStyles();
             Application.SetCompatibleTextRenderingDefault(false);
-            Debug.WriteLine("Консоль работает");
             using (var loginForm = new form_Login())
-            {
+                {
+                sw.Stop();
+                Logger.Write($"Время запуска: {sw.ElapsedMilliseconds} мс");
                 if (loginForm.ShowDialog() == DialogResult.OK)
                 {
                     if (AppState.CurrentUser.role == "admin")
-                    {
+                    {                    
                         Application.Run(new form_Admin()); //Запуск формы админа главной
                     }
                     else

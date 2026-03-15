@@ -262,6 +262,7 @@ namespace Ponyville_School
             this.Margin = new System.Windows.Forms.Padding(6, 5, 6, 5);
             this.Name = "form_Login";
             this.Text = "Авторизация";
+            this.Load += new System.EventHandler(this.form_Login_Load);
             ((System.ComponentModel.ISupportInitialize)(this.password_show)).EndInit();
             this.panel_Registration.ResumeLayout(false);
             this.panel_Registration.PerformLayout();

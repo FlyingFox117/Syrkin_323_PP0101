@@ -44,7 +44,6 @@ namespace Ponyville_School
             panel_Upper.BackColor = Color.FromArgb(212, 162, 233);
             bt_Profile.BackColor = Color.FromArgb(212, 162, 233);
             CheckForUpdates();
-            MessageBox.Show("Обновлений нет");
         }
         private async Task<bool> LoadUserProgress()
         {

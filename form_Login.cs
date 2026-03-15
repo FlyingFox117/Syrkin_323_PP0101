@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.ComponentModel;
 using System.Data;
 using System.Drawing;
+using System.IO;
 using System.Linq;
 using System.Text;
 using System.Text.RegularExpressions;
@@ -48,6 +49,17 @@ namespace Ponyville_School
                     MessageBox.Show("Добро пожаловать в школу, " + AppState.CurrentUser.name);
                     this.DialogResult = DialogResult.OK;
                 }
+                string appData = Environment.GetFolderPath(Environment.SpecialFolder.ApplicationData);
+                string folder = Path.Combine(appData, "Ponyville School");
+                if (!Directory.Exists(folder))
+                {
+                    Directory.CreateDirectory(folder);
+                }
+                string tokenPath = Path.Combine(folder, "session.dat");
+                Guid token = Guid.NewGuid();
+                string tokenGuid = token.ToString();
+                File.WriteAllText(tokenPath, tokenGuid);
+                await AppState.Supabase.CreateToken(token, AppState.CurrentUser.id);
             }
             else
             {
@@ -139,5 +151,22 @@ namespace Ponyville_School
         {
             return Regex.IsMatch(input, @"\p{Cs}");
         } //Проверка на недопустимые символы
+
+        private async void form_Login_Load(object sender, EventArgs e)
+        {
+            string appData = 
+            Environment.GetFolderPath(Environment.SpecialFolder.ApplicationData);
+            string folder = Path.Combine(appData, "Ponyville School");
+            string tokenPath = Path.Combine(folder, "session.dat");
+            if (File.Exists(tokenPath))
+            {
+                string token = File.ReadAllText(tokenPath);
+                bool valid = await AppState.Supabase.CheckToken(token);
+                if (valid)
+                {
+                    this.DialogResult = DialogResult.OK;
+                }
+            }
+        } //Проверка авторизации
     }
 }

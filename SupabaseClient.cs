@@ -56,13 +56,13 @@ namespace Ponyville_School
 
             if (response.IsSuccessful)
             {
-                CreateLog("register_user с данными (" + name + ", " + login + ", " + password + ")",
+                Logger.SupabaseLog("register_user с данными (" + name + ", " + login + ", " + password + ")",
                     response.IsSuccessful,
                     response.ErrorMessage,
                     response.Content);
                 return true;
             }
-            CreateLog("register_user с данными (" + name + ", " + login + ", " + password + ")",
+            Logger.SupabaseLog("register_user с данными (" + name + ", " + login + ", " + password + ")",
                 response.IsSuccessful,
                 response.ErrorMessage,
                 response.Content);
@@ -80,7 +80,7 @@ namespace Ponyville_School
 
             if (rawJson["id"] != null && rawJson["id"].Type != JTokenType.Null) //Проверка полученного ID
             {
-                CreateLog("auth_user с данными (" + login + ", " + password + ")",
+                Logger.SupabaseLog("auth_user с данными (" + login + ", " + password + ")",
                     response.IsSuccessful,
                     response.ErrorMessage,
                     response.Content);
@@ -94,7 +94,7 @@ namespace Ponyville_School
             }
             else
             {
-                CreateLog("auth_user с данными (" + login + ", " + password + ")",
+                Logger.SupabaseLog("auth_user с данными (" + login + ", " + password + ")",
                     response.IsSuccessful,
                     response.ErrorMessage,
                     response.Content);
@@ -112,10 +112,10 @@ namespace Ponyville_School
 
                 if (!response.IsSuccessful || string.IsNullOrWhiteSpace(response.Content))
                 {
-                    CreateLog("get_course_data с данными (" + course_id + ", " + p_user_id + ")", response.IsSuccessful, response.ErrorMessage, response.Content);
+                    Logger.SupabaseLog("get_course_data с данными (" + course_id + ", " + p_user_id + ")", response.IsSuccessful, response.ErrorMessage, response.Content);
                     return false;
                 }
-                CreateLog("get_course_data с данными (" + course_id + ", " + p_user_id + ")", response.IsSuccessful, response.ErrorMessage, response.Content);
+                Logger.SupabaseLog("get_course_data с данными (" + course_id + ", " + p_user_id + ")", response.IsSuccessful, response.ErrorMessage, response.Content);
 
                 var rawJson = JArray.Parse(response.Content);
 
@@ -140,7 +140,7 @@ namespace Ponyville_School
             try
             {
                 var questions = JsonConvert.DeserializeObject<List<Questions>>(response.Content);
-                CreateLog("get_practice_data с данными (" + task_id + ")",
+                Logger.SupabaseLog("get_practice_data с данными (" + task_id + ")",
                     response.IsSuccessful,
                     response.ErrorMessage,
                     response.Content);
@@ -149,7 +149,7 @@ namespace Ponyville_School
             catch
             {
                 MessageBox.Show("Задания не найдены!", "Задания", MessageBoxButtons.OK, MessageBoxIcon.Error);
-                CreateLog("get_practice_data с данными (" + task_id + ")",
+                Logger.SupabaseLog("get_practice_data с данными (" + task_id + ")",
                     response.IsSuccessful,
                     response.ErrorMessage,
                     response.Content);
@@ -170,13 +170,13 @@ namespace Ponyville_School
             var response = await client.ExecuteAsync(request);
             if (response.IsSuccessful)
             {
-                CreateLog("submit_result с данными (" + user + ", " + task + ", " + score + ", " + course + ")",
+                Logger.SupabaseLog("submit_result с данными (" + user + ", " + task + ", " + score + ", " + course + ")",
                     response.IsSuccessful, response.ErrorMessage, response.Content);
                 return true;
             }
             else
             {
-                CreateLog("submit_result с данными (" + user + ", " + task + ", " + score + ", " + course + ")",
+                Logger.SupabaseLog("submit_result с данными (" + user + ", " + task + ", " + score + ", " + course + ")",
                     response.IsSuccessful, response.ErrorMessage, response.Content);
                 return false;
             }
@@ -193,7 +193,7 @@ namespace Ponyville_School
 
                 if (!response.IsSuccessful || string.IsNullOrWhiteSpace(response.Content))
                 {
-                    CreateLog("get_user_progress с данными (" + user_id + ")", response.IsSuccessful, response.ErrorMessage, response.Content);
+                    Logger.SupabaseLog("get_user_progress с данными (" + user_id + ")", response.IsSuccessful, response.ErrorMessage, response.Content);
                     return false;
                 }
 
@@ -203,7 +203,7 @@ namespace Ponyville_School
 
                 AppState.CoursesProgress = progressList.ToArray();
 
-                CreateLog("get_user_progress с данными (" + user_id + ")", response.IsSuccessful, "", response.Content);
+                Logger.SupabaseLog("get_user_progress с данными (" + user_id + ")", response.IsSuccessful, "", response.Content);
 
                 return true;
             }
@@ -222,26 +222,83 @@ namespace Ponyville_School
 
             if (!response.IsSuccessful || string.IsNullOrWhiteSpace(response.Content))
             {
-                CreateLog("get_user_results с данными (" + p_user_id + ")", response.IsSuccessful, response.ErrorMessage, response.Content);
+                Logger.SupabaseLog("get_user_results с данными (" + p_user_id + ")", response.IsSuccessful, response.ErrorMessage, response.Content);
                 return new List<UserResults>();
             }
-            CreateLog("get_user_results с данными (" + p_user_id + ")", response.IsSuccessful, response.ErrorMessage, response.Content);
+            Logger.SupabaseLog("get_user_results с данными (" + p_user_id + ")", response.IsSuccessful, response.ErrorMessage, response.Content);
             return JsonConvert.DeserializeObject<List<UserResults>>(response.Content);
-        }
+        } //Получение списка выполненных заданий пльзователя
 
-        private void CreateLog(string sender, bool succesful, string error, string answer)
+        public async Task<bool> CheckToken(string token) //Проверка действительности токена
         {
-            if (succesful)
+            var request = CreateRequest("/rest/v1/rpc/check_token");
+            request.AddJsonBody(new 
+            { p_token = token });
+            var response = await client.ExecuteAsync(request);
+            var rawJson = JObject.Parse(response.Content);
+            if (rawJson["id"] != null && rawJson["id"].Type != JTokenType.Null)
             {
-                Debug.WriteLine(" ---- Выполняется функция ---- ");
-                Debug.WriteLine("{func}:" + sender + " выполнилась со статусом {OK}!");
-                Debug.WriteLine("{answer}: " + answer);
+                Logger.SupabaseLog("check_token с данными (" + token + ")",
+                   response.IsSuccessful,
+                   response.ErrorMessage,
+                   response.Content);
+                AppState.CurrentUser = rawJson.ToObject<UserData>();
+                if (AppState.CurrentUser.available == null)
+                {
+                    AppState.CurrentUser.available = true;
+                }
+                return true;
             }
             else
             {
-                Debug.WriteLine(" ---- Выполняется функция ---- ");
-                Debug.WriteLine("{func}:" + sender + " выполнилась со статусом {ERROR}!");
-                Debug.WriteLine("{error}: " + error);
+                Logger.SupabaseLog("check_token с данными (" + token + ")",
+                    response.IsSuccessful, response.ErrorMessage, response.Content);
+                return false;
+            }
+        }
+
+        public async Task<bool> CreateToken(Guid token, int? user_id) //Создание токена для автоматической авторизации
+        {
+            var request = CreateRequest("/rest/v1/rpc/create_token");
+            request.AddJsonBody( new
+            {
+                    p_token = token,
+                    p_user_id = user_id
+            });
+            var response = await client.ExecuteAsync(request);
+            if (response.IsSuccessful)
+            {
+                Logger.SupabaseLog("create_token с данными (" + token + ", " + user_id + ")",
+                    response.IsSuccessful, response.ErrorMessage, response.Content);
+                return true;
+            }
+            else
+            {
+                Logger.SupabaseLog("create_token с данными (" + token + ", " + user_id + ")",
+                    response.IsSuccessful, response.ErrorMessage, response.Content);
+                return false;
+            }
+        }
+
+        public async Task<bool> DeleteToken(string token) //Удаление токена для автоматической авторизации
+        {
+            var request = CreateRequest("/rest/v1/rpc/delete_token");
+            request.AddJsonBody(new
+            {
+                p_token = token
+            });
+            var response = await client.ExecuteAsync(request);
+            if (response.IsSuccessful)
+            {
+                Logger.SupabaseLog("delete_token с данными (" + token + ")",
+                    response.IsSuccessful, response.ErrorMessage, response.Content);
+                return true;
+            }
+            else
+            {
+                Logger.SupabaseLog("delete_token с данными (" + token + ")",
+                    response.IsSuccessful, response.ErrorMessage, response.Content);
+                return false;
             }
         }
     }
