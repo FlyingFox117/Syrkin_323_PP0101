@@ -1,11 +1,11 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <item>
-  <version>1.1.0</version>
+  <version>1.3.0</version>
   <url>
-https://github.com/FlyingFox117/Syrkin_323_PP0101/releases/download/Version_1.1/PonyvilleSchool.zip
+https://github.com/FlyingFox117/Syrkin_323_PP0101/releases/latest/download/PonyvilleSchool.zip
   </url>
   <changelog>
-https://github.com/FlyingFox117/Syrkin_323_PP0101/releases
+https://github.com/FlyingFox117/Syrkin_323_PP0101/releases/latest
   </changelog>
   <mandatory>false</mandatory>
 </item>
