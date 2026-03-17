@@ -21,8 +21,8 @@ namespace Ponyville_School
     {
         private readonly RestClient client;
 
-        private static string BaseURL = ConfigurationManager.AppSettings["SupabaseUrl"];
-        private static string APIkey = ConfigurationManager.AppSettings["SupabaseKey"];
+        private static string BaseURL = CryptoHelper.Decrypt(ConfigurationManager.AppSettings["SupabaseUrl"]);
+        private static string APIkey = CryptoHelper.Decrypt(ConfigurationManager.AppSettings["SupabaseKey"]);
 
         public SupabaseClient()
         {

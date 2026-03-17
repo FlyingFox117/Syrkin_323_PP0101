@@ -1,4 +1,5 @@
-﻿using System;
+﻿using AutoUpdaterDotNET;
+using System;
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.Data;
@@ -154,6 +155,7 @@ namespace Ponyville_School
 
         private async void form_Login_Load(object sender, EventArgs e)
         {
+            CheckForUpdates();
             string appData = 
             Environment.GetFolderPath(Environment.SpecialFolder.ApplicationData);
             string folder = Path.Combine(appData, "Ponyville School");
@@ -167,6 +169,12 @@ namespace Ponyville_School
                     this.DialogResult = DialogResult.OK;
                 }
             }
+            Logger.WriteLog("Запуск формы form_Login", 2, "form_Login");
         } //Проверка авторизации
+
+        private void CheckForUpdates() //Проверка на наличие обновлений
+        {
+            AutoUpdater.Start("https://raw.githubusercontent.com/FlyingFox117/Syrkin_323_PP0101/master/update.xml");
+        }
     }
 }

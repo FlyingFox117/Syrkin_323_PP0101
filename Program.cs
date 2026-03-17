@@ -28,11 +28,13 @@ namespace Ponyville_School
                 {
                     if (AppState.CurrentUser.role == "admin")
                     {                    
-                        Application.Run(new form_Admin()); //Запуск формы админа главной
+                        Application.Run(new form_Menu()); //Запуск формы админа главной
+                        Logger.Write("Пользователь - администратор");
                     }
                     else
                     {
                         Application.Run(new form_Menu()); //Запуск формы ученика главной
+                        Logger.Write("Пользователь - ученик");
                     }
                 }
             }

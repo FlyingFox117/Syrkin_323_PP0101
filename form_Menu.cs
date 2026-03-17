@@ -13,6 +13,7 @@ using AutoUpdaterDotNET;
 using System.Security.Principal;
 using System.Configuration;
 using System.Web.Configuration;
+using System.Diagnostics;
 
 namespace Ponyville_School
 {
@@ -25,6 +26,7 @@ namespace Ponyville_School
         }
         private async void form_Menu_Load(object sender, EventArgs e)
         {
+            Logger.WriteLog("Запуск формы form_Login", 2, "form_Login");
             if ( await LoadUserProgress()) //Ожидание ответа от Supabase
             {
                 PictureBox[] courseButtons = new PictureBox[] {
@@ -43,7 +45,14 @@ namespace Ponyville_School
             }
             panel_Upper.BackColor = Color.FromArgb(212, 162, 233);
             bt_Profile.BackColor = Color.FromArgb(212, 162, 233);
-            CheckForUpdates();
+            if (AppState.CurrentUser.role == "admin")
+            {
+                Logger.WriteLog("Форма меню в режиме администратора", 2, "form_Login");
+            }
+            else
+            {
+                Logger.WriteLog("Форма меню в режиме пользователя", 2, "form_Login");
+            }
         }
         private async Task<bool> LoadUserProgress()
         {
@@ -249,10 +258,12 @@ namespace Ponyville_School
             if (AppState.Tasks == null)
             {
                 bt_CourseStart.Enabled = false;
+                Stopwatch sw = Stopwatch.StartNew();
                 bool Available = await AppState.Supabase.GetCourseData(AppState.SelectedCourse, AppState.CurrentUser.id); //Ожидание подгрузки информации
                 if (!Available)
                 {
                     MessageBox.Show("Не удалось загрузить задания!"); //Если не удалось загрузить
+                    Logger.WriteLog("Загрузка заданий не удалась", 0, "form_Menu");
                     bt_CourseStart.Enabled = true;
                     return;
                 }
@@ -266,6 +277,8 @@ namespace Ponyville_School
                 panel_Carousel.Visible = true;
                 bt_CourseStart.Text = "Назад";
                 ShowTask();
+                sw.Stop();
+                Logger.Write("Время загрузки заданий: " + sw.ElapsedMilliseconds + "мс");
             }
             else
                 bt_ReturnToMenu_Click(sender, e);
@@ -298,9 +311,5 @@ namespace Ponyville_School
                 lb_Score.Text = "0";
             }            
         } //Показ результата задания
-        private void CheckForUpdates()
-        {
-            AutoUpdater.Start("https://raw.githubusercontent.com/FlyingFox117/Syrkin_323_PP0101/master/update.xml");
-        }
     }
 }

@@ -151,9 +151,9 @@ namespace Ponyville_School
             this.label7.AutoSize = true;
             this.label7.Location = new System.Drawing.Point(12, 331);
             this.label7.Name = "label7";
-            this.label7.Size = new System.Drawing.Size(160, 23);
+            this.label7.Size = new System.Drawing.Size(159, 23);
             this.label7.TabIndex = 9;
-            this.label7.Text = "Это версия 1.2.0!";
+            this.label7.Text = "Это версия 1.3.0!";
             // 
             // bt_Cancel
             // 
