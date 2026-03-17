@@ -20,7 +20,7 @@ namespace Ponyville_School
 
         static Logger()
         {
-            string logDir = Path.Combine(AppDomain.CurrentDomain.BaseDirectory, "logs");
+            string logDir = Path.Combine(Environment.GetFolderPath(Environment.SpecialFolder.ApplicationData), "Ponyville School", "logs");
             if (!Directory.Exists(logDir))
             {
                 Directory.CreateDirectory(logDir);
