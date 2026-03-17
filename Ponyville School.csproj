@@ -164,7 +164,6 @@
   <ItemGroup>
     <Compile Include="AppState.cs" />
     <Compile Include="CourseProgress.cs" />
-    <Compile Include="CryptoHelper.cs" />
     <Compile Include="form_Admin.cs">
       <SubType>Form</SubType>
     </Compile>
